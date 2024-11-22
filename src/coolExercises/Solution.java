@@ -1,3 +1,5 @@
+package coolExercises;
+
 public class Solution {
     public static void main(String args[] ) throws Exception {
         int total = 0;

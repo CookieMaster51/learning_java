@@ -1,3 +1,5 @@
+package oldExecrises;
+
 public class Randstuff {
     public static void main(String[] args) {
         String[][] manyThings = {

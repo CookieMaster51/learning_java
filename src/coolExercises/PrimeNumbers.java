@@ -1,3 +1,5 @@
+package coolExercises;
+
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
@@ -7,14 +9,15 @@ public class PrimeNumbers {
     public static void main(String[] args) {
         long maximum = (long) 1e6; // Change this for testing
         long totalElapsed = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             long startTime = System.currentTimeMillis();
             long result = 0;
 
             CountDownLatch countDownLatch = new CountDownLatch(numThreads);
             for (int j = numThreads-1; j > -1; j--){
                 // System.out.println(nextMulSix((j)*maximum/numThreads) + " " + nextMulSix((j + 1)*maximum/numThreads));
-                PrimeSumTask task = new PrimeSumTask(countDownLatch, nextMulSix(j*maximum/numThreads), nextMulSix((j+1)*maximum/numThreads)-1, j);
+                PrimeSumTask task = new PrimeSumTask(countDownLatch, nextMulSix(j*maximum/numThreads),
+                        nextMulSix((j+1)*maximum/numThreads)-1, j);
                 Thread thread = new Thread(task);
                 thread.start();
             }

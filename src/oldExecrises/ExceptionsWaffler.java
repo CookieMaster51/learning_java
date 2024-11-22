@@ -1,6 +1,6 @@
-import java.util.Scanner;
+package oldExecrises;
 
-import static java.lang.Float.NaN;
+import java.util.Scanner;
 
 public class ExceptionsWaffler {
     public static void main(String[] args) {

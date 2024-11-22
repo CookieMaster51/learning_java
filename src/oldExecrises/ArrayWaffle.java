@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Scanner;
+package oldExecrises;
 
 public class ArrayWaffle {
     public static void main(String[] args) {

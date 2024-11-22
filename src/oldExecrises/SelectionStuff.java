@@ -1,3 +1,5 @@
+package oldExecrises;
+
 public class SelectionStuff {
     private enum Names {
         JAN,
@@ -9,7 +11,7 @@ public class SelectionStuff {
         Names name1 = Names.JAN;
 
         if (name1 == Names.JAN) {
-            System.out.println("Hello");
+            System.out.println("stuff.Hello");
         } else if (name1 == Names.TOBY) {
             System.out.println("Why are you here?");
         }

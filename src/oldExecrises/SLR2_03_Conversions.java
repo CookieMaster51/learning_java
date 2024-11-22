@@ -1,3 +1,5 @@
+package oldExecrises;
+
 import java.util.Scanner;
 public class SLR2_03_Conversions {
     public static Scanner myScanner = new Scanner(System.in);

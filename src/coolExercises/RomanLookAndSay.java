@@ -1,3 +1,5 @@
+package coolExercises;
+
 import java.util.Scanner;
 
 public class RomanLookAndSay {
