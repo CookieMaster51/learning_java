@@ -1,23 +1,27 @@
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 public class PrimeNumbers {
+    public static int numThreads = 15;
+    public static long[] primeSums = new long[numThreads];
     public static void main(String[] args) {
         long maximum = (long) 1e6; // Change this for testing
         long totalElapsed = 0;
         for (int i = 0; i < 10; i++) {
             long startTime = System.currentTimeMillis();
             long result = 0;
-            CountDownLatch countDownLatch = new CountDownLatch(2);
-            PrimeSumTask task1 = new PrimeSumTask(countDownLatch, 6, 2*maximum/3);
-            PrimeSumTask task2 = new PrimeSumTask(countDownLatch, nextMulSix(2*maximum/3), maximum);
-            Thread thread = new Thread(task1);
-            Thread thread2 = new Thread(task2);
-            thread.start();
-            thread2.start();
+
+            CountDownLatch countDownLatch = new CountDownLatch(numThreads);
+            for (int j = numThreads-1; j > -1; j--){
+                // System.out.println(nextMulSix((j)*maximum/numThreads) + " " + nextMulSix((j + 1)*maximum/numThreads));
+                PrimeSumTask task = new PrimeSumTask(countDownLatch, nextMulSix(j*maximum/numThreads), nextMulSix((j+1)*maximum/numThreads)-1, j);
+                Thread thread = new Thread(task);
+                thread.start();
+            }
             
             try {
                 countDownLatch.await();
-                result = 5 + task1.sum + task2.sum;
+                result = 5 + Arrays.stream(primeSums).sum();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -43,17 +47,18 @@ class PrimeSumTask implements Runnable{
     CountDownLatch countDownLatch;
     long start;
     long end;
-    long sum;
+    int position;
     
-    public PrimeSumTask(CountDownLatch countDownLatch, long start, long end){
+    public PrimeSumTask(CountDownLatch countDownLatch, long start, long end, int position){
         this.countDownLatch = countDownLatch;
         this.start = start;
         this.end = end;
+        this.position = position;
     }
 
     @Override
     public void run() {
-        this.sum = getSumOfPrimes(start, end);
+        PrimeNumbers.primeSums[position] = getSumOfPrimes(start, end);
         countDownLatch.countDown();
     }
     
